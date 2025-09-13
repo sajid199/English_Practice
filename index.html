@@ -3,779 +3,419 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive English Tenses Chart</title>
+    <title>English Tenses Rules with Hindi Examples</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
         }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            backdrop-filter: blur(10px);
-        }
-
-        .header {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            padding: 30px;
+        h1 {
             text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="2"/></svg>');
-            animation: float 6s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
-        }
-
-        .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            position: relative;
-            z-index: 1;
-        }
-
-        .nav-tabs {
-            display: flex;
-            background: #f8f9fa;
-            border-bottom: 1px solid #dee2e6;
-        }
-
-        .nav-tab {
-            flex: 1;
-            padding: 20px;
-            text-align: center;
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 1.1rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .nav-tab:hover {
-            background: rgba(102, 126, 234, 0.1);
-        }
-
-        .nav-tab.active {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-        }
-
-        .nav-tab.active::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 0;
-            border-left: 15px solid transparent;
-            border-right: 15px solid transparent;
-            border-bottom: 15px solid white;
-        }
-
-        .content {
-            padding: 40px;
-        }
-
-        .tense-section {
-            display: none;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .tense-section.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .tense-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin-bottom: 30px;
-        }
-
-        .tense-card {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            border-left: 5px solid #667eea;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .tense-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 100px;
-            height: 100px;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
-            border-radius: 50%;
-            transform: translate(30px, -30px);
-        }
-
-        .tense-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-        }
-
-        .past-card {
-            border-left-color: #e74c3c;
-        }
-
-        .future-card {
-            border-left-color: #3498db;
-        }
-
-        .tense-name {
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin-bottom: 15px;
             color: #2c3e50;
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
-
-        .emoji {
-            font-size: 1.5rem;
+        h2 {
+            color: #3498db;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
         }
-
-        .structure {
-            background: rgba(102, 126, 234, 0.1);
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        th, td {
+            border: 1px solid #ddd;
             padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .section {
+            margin-bottom: 40px;
+        }
+        #practice-section {
+            background-color: #fff;
+            padding: 20px;
             border-radius: 8px;
-            margin-bottom: 15px;
-            font-family: 'Courier New', monospace;
-            font-weight: 600;
-            color: #667eea;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
-
-        .example {
-            margin-bottom: 10px;
-            font-size: 1.1rem;
-            color: #2c3e50;
-        }
-
-        .hindi {
-            color: #7f8c8d;
-            font-style: italic;
-            font-size: 0.95rem;
-        }
-
-        .practice-section {
-            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-            border-radius: 15px;
-            padding: 30px;
-            margin-top: 30px;
-        }
-
-        .practice-button {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin: 0 auto 20px;
-        }
-
-        .practice-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
-        }
-
-        .question-container {
-            display: none;
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            margin-top: 20px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .question-container.active {
-            display: block;
-            animation: slideIn 0.5s ease;
-        }
-
-        @keyframes slideIn {
-            from { transform: translateX(-100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-
         .question {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 20px;
-            color: #2c3e50;
-        }
-
-        .options {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
             margin-bottom: 20px;
         }
-
-        .option {
-            background: #f8f9fa;
-            border: 2px solid #dee2e6;
-            border-radius: 10px;
-            padding: 15px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: center;
-            font-weight: 600;
-        }
-
-        .option:hover {
-            background: rgba(102, 126, 234, 0.1);
-            border-color: #667eea;
-        }
-
-        .option.selected {
-            background: #667eea;
+        button {
+            background-color: #27ae60;
             color: white;
-            border-color: #667eea;
-        }
-
-        .option.correct {
-            background: #27ae60;
-            color: white;
-            border-color: #27ae60;
-        }
-
-        .option.incorrect {
-            background: #e74c3c;
-            color: white;
-            border-color: #e74c3c;
-        }
-
-        .result {
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 15px;
-            font-weight: 600;
-        }
-
-        .correct-result {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-
-        .incorrect-result {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-
-        .score-display {
-            text-align: center;
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin: 20px 0;
-            color: #667eea;
-        }
-
-        .next-button {
-            background: #27ae60;
-            color: white;
+            padding: 10px 20px;
             border: none;
-            padding: 12px 25px;
-            border-radius: 25px;
+            border-radius: 5px;
             cursor: pointer;
-            font-weight: 600;
-            margin-top: 15px;
-            transition: all 0.3s ease;
+        }
+        button:hover {
+            background-color: #2ecc71;
+        }
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        .correct {
+            color: green;
+        }
+        .incorrect {
+            color: red;
         }
 
-        .next-button:hover {
-            background: #229954;
-            transform: translateY(-2px);
-        }
-
-        .restart-button {
-            background: #f39c12;
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: 600;
-            margin: 10px;
-            transition: all 0.3s ease;
-        }
-
-        .restart-button:hover {
-            background: #e67e22;
-            transform: translateY(-2px);
-        }
-
-        .progress-bar {
-            background: #dee2e6;
-            height: 8px;
-            border-radius: 4px;
-            margin-bottom: 20px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            background: linear-gradient(90deg, #667eea, #764ba2);
-            height: 100%;
-            border-radius: 4px;
-            transition: width 0.3s ease;
-        }
-
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2rem;
+        /* Responsive styles */
+        @media (max-width: 900px) {
+            table, th, td {
+                font-size: 15px;
             }
-            
-            .content {
-                padding: 20px;
+            h1 {
+                font-size: 2em;
             }
-            
-            .tense-grid {
-                grid-template-columns: 1fr;
+            h2 {
+                font-size: 1.3em;
             }
-            
-            .nav-tabs {
-                flex-direction: column;
+        }
+        @media (max-width: 600px) {
+            body {
+                margin: 5px;
+            }
+            h1 {
+                font-size: 1.3em;
+            }
+            h2 {
+                font-size: 1em;
+                padding-bottom: 6px;
+            }
+            .section, #practice-section {
+                margin-bottom: 20px;
+                padding: 10px;
+            }
+            table, thead, tbody, th, td, tr {
+                display: block;
+                width: 100%;
+            }
+            table {
+                box-shadow: none;
+                margin-bottom: 10px;
+            }
+            th, td {
+                border: none;
+                border-bottom: 1px solid #eee;
+                padding: 8px 4px;
+                text-align: left;
+            }
+            th {
+                background-color: #3498db;
+                color: white;
+                position: sticky;
+                top: 0;
+            }
+            tr {
+                margin-bottom: 10px;
+                background: #fff;
+                box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+            }
+            .question {
+                font-size: 1em;
+            }
+            button {
+                width: 100%;
+                padding: 12px 0;
+                font-size: 1em;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>🎯 English Tenses Master</h1>
-            <p>Learn and Practice English Tenses with Interactive Examples</p>
-        </div>
+    <h1>English Tenses Rules with Hindi Examples</h1>
 
-        <div class="nav-tabs">
-            <button class="nav-tab active" onclick="showSection('past')">📚 Past Tense</button>
-            <button class="nav-tab" onclick="showSection('future')">🔮 Future Tense</button>
-            <button class="nav-tab" onclick="showSection('practice')">🏆 Practice Quiz</button>
-        </div>
+    <div class="section">
+        <h2>1. Present Tense (वर्तमान काल)</h2>
+        <table>
+            <tr>
+                <th>Type</th>
+                <th>Structure</th>
+                <th>Example (English)</th>
+                <th>Example (Hindi → English)</th>
+            </tr>
+            <tr>
+                <td>Simple Present</td>
+                <td>Subject + V1 (base verb) / V1+s/es</td>
+                <td>She reads books.</td>
+                <td>वह किताबें पढ़ती है।</td>
+            </tr>
+            <tr>
+                <td>Present Continuous</td>
+                <td>Subject + is/am/are + V-ing</td>
+                <td>He is playing cricket.</td>
+                <td>वह क्रिकेट खेल रहा है।</td>
+            </tr>
+            <tr>
+                <td>Present Perfect</td>
+                <td>Subject + has/have + V3 (past participle)</td>
+                <td>I have finished my work.</td>
+                <td>मैंने अपना काम पूरा कर लिया है।</td>
+            </tr>
+            <tr>
+                <td>Present Perfect Continuous</td>
+                <td>Subject + has/have + been + V-ing</td>
+                <td>They have been studying since morning.</td>
+                <td>वे सुबह से पढ़ाई कर रहे हैं।</td>
+            </tr>
+        </table>
+    </div>
 
-        <div class="content">
-            <div id="past" class="tense-section active">
-                <h2 style="text-align: center; color: #e74c3c; margin-bottom: 30px; font-size: 2rem;">
-                    📖 Past Tense (भूतकाल)
-                </h2>
-                <div class="tense-grid">
-                    <div class="tense-card past-card">
-                        <div class="tense-name">
-                            <span class="emoji">🏃‍♀️</span>
-                            Simple Past
-                        </div>
-                        <div class="structure">Subject + V2 (past form of verb)</div>
-                        <div class="example"><strong>Example:</strong> She went to market.</div>
-                        <div class="hindi"><strong>Hindi:</strong> वह बाजार गई थी।</div>
-                    </div>
-                    
-                    <div class="tense-card past-card">
-                        <div class="tense-name">
-                            <span class="emoji">📖</span>
-                            Past Continuous
-                        </div>
-                        <div class="structure">Subject + was/were + V-ing</div>
-                        <div class="example"><strong>Example:</strong> I was reading a book.</div>
-                        <div class="hindi"><strong>Hindi:</strong> मैं किताब पढ़ रहा था।</div>
-                    </div>
-                    
-                    <div class="tense-card past-card">
-                        <div class="tense-name">
-                            <span class="emoji">✅</span>
-                            Past Perfect
-                        </div>
-                        <div class="structure">Subject + had + V3</div>
-                        <div class="example"><strong>Example:</strong> He had left before I came.</div>
-                        <div class="hindi"><strong>Hindi:</strong> मैं आने से पहले वह जा चुका था।</div>
-                    </div>
-                    
-                    <div class="tense-card past-card">
-                        <div class="tense-name">
-                            <span class="emoji">⏰</span>
-                            Past Perfect Continuous
-                        </div>
-                        <div class="structure">Subject + had + been + V-ing</div>
-                        <div class="example"><strong>Example:</strong> They had been working all day.</div>
-                        <div class="hindi"><strong>Hindi:</strong> वे पूरा दिन काम कर रहे थे।</div>
-                    </div>
-                </div>
-            </div>
+    <div class="section">
+        <h2>2. Past Tense (भूतकाल)</h2>
+        <table>
+            <tr>
+                <th>Type</th>
+                <th>Structure</th>
+                <th>Example (English)</th>
+                <th>Example (Hindi → English)</th>
+            </tr>
+            <tr>
+                <td>Simple Past</td>
+                <td>Subject + V2 (past form of verb)</td>
+                <td>She went to market.</td>
+                <td>वह बाजार गई थी।</td>
+            </tr>
+            <tr>
+                <td>Past Continuous</td>
+                <td>Subject + was/were + V-ing</td>
+                <td>I was reading a book.</td>
+                <td>मैं किताब पढ़ रहा था।</td>
+            </tr>
+            <tr>
+                <td>Past Perfect</td>
+                <td>Subject + had + V3</td>
+                <td>He had left before I came.</td>
+                <td>मैं आने से पहले वह जा चुका था।</td>
+            </tr>
+            <tr>
+                <td>Past Perfect Continuous</td>
+                <td>Subject + had + been + V-ing</td>
+                <td>They had been working all day.</td>
+                <td>वे पूरा दिन काम कर रहे थे।</td>
+            </tr>
+        </table>
+    </div>
 
-            <div id="future" class="tense-section">
-                <h2 style="text-align: center; color: #3498db; margin-bottom: 30px; font-size: 2rem;">
-                    🔮 Future Tense (भविष्यत काल)
-                </h2>
-                <div class="tense-grid">
-                    <div class="tense-card future-card">
-                        <div class="tense-name">
-                            <span class="emoji">🔮</span>
-                            Simple Future
-                        </div>
-                        <div class="structure">Subject + will + V1</div>
-                        <div class="example"><strong>Example:</strong> She will come tomorrow.</div>
-                        <div class="hindi"><strong>Hindi:</strong> वह कल आएगी।</div>
-                    </div>
-                    
-                    <div class="tense-card future-card">
-                        <div class="tense-name">
-                            <span class="emoji">✈️</span>
-                            Future Continuous
-                        </div>
-                        <div class="structure">Subject + will be + V-ing</div>
-                        <div class="example"><strong>Example:</strong> I will be traveling next week.</div>
-                        <div class="hindi"><strong>Hindi:</strong> मैं अगले सप्ताह यात्रा कर रहा हूँ।</div>
-                    </div>
-                    
-                    <div class="tense-card future-card">
-                        <div class="tense-name">
-                            <span class="emoji">🎯</span>
-                            Future Perfect
-                        </div>
-                        <div class="structure">Subject + will have + V3</div>
-                        <div class="example"><strong>Example:</strong> They will have completed the work by evening.</div>
-                        <div class="hindi"><strong>Hindi:</strong> वे शाम तक काम पूरा कर चुके होंगे।</div>
-                    </div>
-                    
-                    <div class="tense-card future-card">
-                        <div class="tense-name">
-                            <span class="emoji">📅</span>
-                            Future Perfect Continuous
-                        </div>
-                        <div class="structure">Subject + will have been + V-ing</div>
-                        <div class="example"><strong>Example:</strong> By next month, he will have been working here for a year.</div>
-                        <div class="hindi"><strong>Hindi:</strong> अगले महीने तक, वह यहाँ एक साल से काम कर रहा होगा।</div>
-                    </div>
-                </div>
-            </div>
+    <div class="section">
+        <h2>3. Future Tense (भविष्यत काल)</h2>
+        <table>
+            <tr>
+                <th>Type</th>
+                <th>Structure</th>
+                <th>Example (English)</th>
+                <th>Example (Hindi → English)</th>
+            </tr>
+            <tr>
+                <td>Simple Future</td>
+                <td>Subject + will + V1</td>
+                <td>She will come tomorrow.</td>
+                <td>वह कल आएगी।</td>
+            </tr>
+            <tr>
+                <td>Future Continuous</td>
+                <td>Subject + will be + V-ing</td>
+                <td>I will be traveling next week.</td>
+                <td>मैं अगले सप्ताह यात्रा कर रहा हूँ।</td>
+            </tr>
+            <tr>
+                <td>Future Perfect</td>
+                <td>Subject + will have + V3</td>
+                <td>They will have completed the work by evening.</td>
+                <td>वे शाम तक काम पूरा कर चुके होंगे।</td>
+            </tr>
+            <tr>
+                <td>Future Perfect Continuous</td>
+                <td>Subject + will have been + V-ing</td>
+                <td>By next month, he will have been working here for a year.</td>
+                <td>अगले महीने तक, वह यहाँ एक साल से काम कर रहा होगा।</td>
+            </tr>
+        </table>
+    </div>
 
-            <div id="practice" class="tense-section">
-                <div class="practice-section">
-                    <h2 style="text-align: center; color: #667eea; margin-bottom: 20px; font-size: 2rem;">
-                        🏆 Practice Quiz
-                    </h2>
-                    <p style="text-align: center; margin-bottom: 20px; font-size: 1.1rem; color: #6c757d;">
-                        Test your knowledge with these interactive questions!
-                    </p>
-                    
-                    <div class="score-display" id="scoreDisplay">Score: 0/0</div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="progressFill" style="width: 0%"></div>
-                    </div>
-                    
-                    <button class="practice-button" onclick="startQuiz()">
-                        🚀 Start Practice Quiz
-                    </button>
-                    
-                    <div id="questionContainer" class="question-container">
-                        <div id="questionText" class="question"></div>
-                        <div id="optionsContainer" class="options"></div>
-                        <div id="resultContainer"></div>
-                        <div style="text-align: center;">
-                            <button id="nextButton" class="next-button" onclick="nextQuestion()" style="display: none;">
-                                Next Question →
-                            </button>
-                            <button class="restart-button" onclick="restartQuiz()" style="display: none;" id="restartButton">
-                                🔄 Try Again
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="section">
+        <h2>Quick Hindi → English Conversion Tips</h2>
+        <table>
+            <tr>
+                <th>Hindi Sentence</th>
+                <th>English Sentence</th>
+            </tr>
+            <tr>
+                <td>मैं खेलता हूँ।</td>
+                <td>I play.</td>
+            </tr>
+            <tr>
+                <td>वह पढ़ रही है।</td>
+                <td>She is reading.</td>
+            </tr>
+            <tr>
+                <td>हमने खाना खा लिया है।</td>
+                <td>We have eaten food.</td>
+            </tr>
+            <tr>
+                <td>वे कल आएंगे।</td>
+                <td>They will come tomorrow.</td>
+            </tr>
+            <tr>
+                <td>मैं काम कर रहा था।</td>
+                <td>I was working.</td>
+            </tr>
+            <tr>
+                <td>क्या तुम स्कूल जा रहे हो?</td>
+                <td>Are you going to school?</td>
+            </tr>
+            <tr>
+                <td>उसने पुस्तक पढ़ ली थी।</td>
+                <td>He had read the book.</td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="practice-section">
+        <h2>Practice Session</h2>
+        <p>Select the correct English translation for the given Hindi sentence.</p>
+        <div id="questions"></div>
+        <button id="submit-btn" style="display: none;">Submit Answers</button>
+        <div id="result"></div>
     </div>
 
     <script>
         const questions = [
             {
-                question: "Complete: Yesterday, I _____ to the store.",
-                options: ["go", "went", "going", "will go"],
-                correct: 1,
-                type: "Simple Past",
-                explanation: "Simple Past tense uses the past form of the verb (V2). 'Went' is the past form of 'go'."
+                hindi: "मैं खेलता हूँ।",
+                options: ["I play.", "I am playing.", "I have played.", "I played."],
+                correct: "I play."
             },
             {
-                question: "She _____ a book when I called her.",
-                options: ["read", "was reading", "has read", "will read"],
-                correct: 1,
-                type: "Past Continuous",
-                explanation: "Past Continuous shows an ongoing action in the past. Structure: was/were + V-ing."
+                hindi: "वह पढ़ रही है।",
+                options: ["She reads.", "She is reading.", "She has read.", "She read."],
+                correct: "She is reading."
             },
             {
-                question: "By the time we arrived, the movie _____.",
-                options: ["started", "was starting", "had started", "will start"],
-                correct: 2,
-                type: "Past Perfect",
-                explanation: "Past Perfect shows an action completed before another past action. Structure: had + V3."
+                hindi: "हमने खाना खा लिया है।",
+                options: ["We eat food.", "We are eating food.", "We have eaten food.", "We ate food."],
+                correct: "We have eaten food."
             },
             {
-                question: "They _____ for two hours when it started raining.",
-                options: ["played", "were playing", "had been playing", "will play"],
-                correct: 2,
-                type: "Past Perfect Continuous",
-                explanation: "Past Perfect Continuous shows duration of an action before another past action."
+                hindi: "वे कल आएंगे।",
+                options: ["They come tomorrow.", "They are coming tomorrow.", "They will come tomorrow.", "They came tomorrow."],
+                correct: "They will come tomorrow."
             },
             {
-                question: "Tomorrow, she _____ to Paris.",
-                options: ["go", "goes", "went", "will go"],
-                correct: 3,
-                type: "Simple Future",
-                explanation: "Simple Future tense uses 'will + base verb' to express future actions."
+                hindi: "मैं काम कर रहा था।",
+                options: ["I work.", "I am working.", "I have worked.", "I was working."],
+                correct: "I was working."
             },
             {
-                question: "At 5 PM tomorrow, I _____ in a meeting.",
-                options: ["am", "was", "will be", "will have been"],
-                correct: 2,
-                type: "Future Continuous",
-                explanation: "Future Continuous shows ongoing action at a specific future time. Structure: will be + V-ing."
+                hindi: "क्या तुम स्कूल जा रहे हो?",
+                options: ["Do you go to school?", "Are you going to school?", "Have you gone to school?", "Did you go to school?"],
+                correct: "Are you going to school?"
             },
             {
-                question: "By next year, they _____ their degree.",
-                options: ["complete", "will complete", "will have completed", "will be completing"],
-                correct: 2,
-                type: "Future Perfect",
-                explanation: "Future Perfect shows completion before a specific future time. Structure: will have + V3."
+                hindi: "उसने पुस्तक पढ़ ली थी।",
+                options: ["He reads the book.", "He is reading the book.", "He had read the book.", "He will read the book."],
+                correct: "He had read the book."
+            },
+            // --- More Practice Questions Below ---
+            {
+                hindi: "मैंने उसे देखा।",
+                options: ["I see him.", "I am seeing him.", "I saw him.", "I have seen him."],
+                correct: "I saw him."
             },
             {
-                question: "By December, he _____ here for five years.",
-                options: ["works", "will work", "will have worked", "will have been working"],
-                correct: 3,
-                type: "Future Perfect Continuous",
-                explanation: "Future Perfect Continuous shows duration up to a future point. Structure: will have been + V-ing."
+                hindi: "वह गाना गा रही थी।",
+                options: ["She sings a song.", "She is singing a song.", "She was singing a song.", "She has sung a song."],
+                correct: "She was singing a song."
+            },
+            {
+                hindi: "क्या तुमने अपना होमवर्क किया है?",
+                options: ["Did you do your homework?", "Do you do your homework?", "Have you done your homework?", "Are you doing your homework?"],
+                correct: "Have you done your homework?"
+            },
+            {
+                hindi: "हम दो घंटे से इंतजार कर रहे हैं।",
+                options: ["We wait for two hours.", "We are waiting for two hours.", "We have waited for two hours.", "We have been waiting for two hours."],
+                correct: "We have been waiting for two hours."
+            },
+            {
+                hindi: "वह कल तक यहाँ रह चुका होगा।",
+                options: ["He will stay here by tomorrow.", "He will have stayed here by tomorrow.", "He stays here by tomorrow.", "He is staying here by tomorrow."],
+                correct: "He will have stayed here by tomorrow."
+            },
+            {
+                hindi: "मैं रोज सुबह दौड़ता हूँ।",
+                options: ["I run every morning.", "I am running every morning.", "I have run every morning.", "I was running every morning."],
+                correct: "I run every morning."
+            },
+            {
+                hindi: "क्या वे फिल्म देख रहे हैं?",
+                options: ["Are they watching a movie?", "Do they watch a movie?", "Did they watch a movie?", "Have they watched a movie?"],
+                correct: "Are they watching a movie?"
+            },
+            {
+                hindi: "तुमने कब खाना खाया?",
+                options: ["When do you eat food?", "When did you eat food?", "When have you eaten food?", "When are you eating food?"],
+                correct: "When did you eat food?"
+            },
+            {
+                hindi: "मैंने अपना फोन खो दिया है।",
+                options: ["I lost my phone.", "I have lost my phone.", "I am losing my phone.", "I lose my phone."],
+                correct: "I have lost my phone."
+            },
+            {
+                hindi: "वह पाँच साल से यहाँ रह रहा है।",
+                options: ["He lives here for five years.", "He is living here for five years.", "He has lived here for five years.", "He has been living here for five years."],
+                correct: "He has been living here for five years."
             }
         ];
 
-        let currentQuestion = 0;
-        let score = 0;
-        let selectedAnswer = null;
-        let quizStarted = false;
-
-        function showSection(section) {
-            // Update nav tabs
-            document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
-            event.target.classList.add('active');
-
-            // Show selected section
-            document.querySelectorAll('.tense-section').forEach(sec => sec.classList.remove('active'));
-            document.getElementById(section).classList.add('active');
-        }
-
-        function startQuiz() {
-            quizStarted = true;
-            currentQuestion = 0;
-            score = 0;
-            selectedAnswer = null;
-            updateScore();
-            showQuestion();
-            document.getElementById('questionContainer').classList.add('active');
-            document.querySelector('.practice-button').style.display = 'none';
-        }
-
-        function showQuestion() {
-            const question = questions[currentQuestion];
-            document.getElementById('questionText').textContent = `${currentQuestion + 1}. ${question.question}`;
-            
-            const optionsContainer = document.getElementById('optionsContainer');
-            optionsContainer.innerHTML = '';
-            
-            question.options.forEach((option, index) => {
-                const optionDiv = document.createElement('div');
-                optionDiv.className = 'option';
-                optionDiv.textContent = option;
-                optionDiv.onclick = () => selectAnswer(index, optionDiv);
-                optionsContainer.appendChild(optionDiv);
+        function loadQuestions() {
+            const questionsDiv = document.getElementById('questions');
+            questions.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.classList.add('question');
+                questionDiv.innerHTML = `
+                    <p><strong>${q.hindi}</strong></p>
+                    ${q.options.map((opt, i) => `
+                        <label>
+                            <input type="radio" name="q${index}" value="${opt}">
+                            ${opt}
+                        </label><br>
+                    `).join('')}
+                `;
+                questionsDiv.appendChild(questionDiv);
             });
-
-            document.getElementById('resultContainer').innerHTML = '';
-            document.getElementById('nextButton').style.display = 'none';
-            document.getElementById('restartButton').style.display = 'none';
-            selectedAnswer = null;
-
-            updateProgress();
+            document.getElementById('submit-btn').style.display = 'block';
         }
 
-        function selectAnswer(index, element) {
-            if (selectedAnswer !== null) return;
-
-            selectedAnswer = index;
-            const question = questions[currentQuestion];
-            
-            // Remove previous selections
-            document.querySelectorAll('.option').forEach(opt => {
-                opt.classList.remove('selected', 'correct', 'incorrect');
-            });
-
-            // Show correct/incorrect
-            document.querySelectorAll('.option').forEach((opt, i) => {
-                if (i === question.correct) {
-                    opt.classList.add('correct');
-                } else if (i === selectedAnswer && i !== question.correct) {
-                    opt.classList.add('incorrect');
+        document.getElementById('submit-btn').addEventListener('click', () => {
+            let score = 0;
+            questions.forEach((q, index) => {
+                const selected = document.querySelector(`input[name="q${index}"]:checked`);
+                if (selected && selected.value === q.correct) {
+                    score++;
                 }
             });
-
-            // Update score
-            if (selectedAnswer === question.correct) {
-                score++;
-            }
-
-            // Show result
-            const resultDiv = document.createElement('div');
-            resultDiv.className = selectedAnswer === question.correct ? 'result correct-result' : 'result incorrect-result';
-            
-            if (selectedAnswer === question.correct) {
-                resultDiv.innerHTML = `
-                    <strong>✅ Correct!</strong><br>
-                    <strong>Tense Type:</strong> ${question.type}<br>
-                    <strong>Explanation:</strong> ${question.explanation}
-                `;
-            } else {
-                resultDiv.innerHTML = `
-                    <strong>❌ Incorrect!</strong><br>
-                    <strong>Correct Answer:</strong> ${question.options[question.correct]}<br>
-                    <strong>Tense Type:</strong> ${question.type}<br>
-                    <strong>Explanation:</strong> ${question.explanation}
-                `;
-            }
-            
-            document.getElementById('resultContainer').appendChild(resultDiv);
-            updateScore();
-
-            // Show next button or restart
-            if (currentQuestion < questions.length - 1) {
-                document.getElementById('nextButton').style.display = 'inline-block';
-            } else {
-                document.getElementById('restartButton').style.display = 'inline-block';
-                showFinalScore();
-            }
-        }
-
-        function nextQuestion() {
-            currentQuestion++;
-            if (currentQuestion < questions.length) {
-                showQuestion();
-            }
-        }
-
-        function updateScore() {
-            document.getElementById('scoreDisplay').textContent = `Score: ${score}/${currentQuestion + (selectedAnswer !== null ? 1 : 0)}`;
-        }
-
-        function updateProgress() {
-            const progress = ((currentQuestion) / questions.length) * 100;
-            document.getElementById('progressFill').style.width = `${progress}%`;
-        }
-
-        function showFinalScore() {
-            const percentage = Math.round((score / questions.length) * 100);
-            let message = '';
-            let emoji = '';
-            
-            if (percentage >= 90) {
-                message = 'Excellent! You\'re a tense master! 🎉';
-                emoji = '🏆';
-            } else if (percentage >= 70) {
-                message = 'Great job! You\'re doing well! 👍';
-                emoji = '🌟';
-            } else if (percentage >= 50) {
-                message = 'Good effort! Keep practicing! 💪';
-                emoji = '📚';
-            } else {
-                message = 'Don\'t worry, practice makes perfect! 🚀';
-                emoji = '💡';
-            }
-
-            const finalDiv = document.createElement('div');
-            finalDiv.className = 'result correct-result';
-            finalDiv.innerHTML = `
-                <div style="text-align: center; font-size: 1.5rem;">
-                    ${emoji}<br>
-                    <strong>Quiz Complete!</strong><br>
-                    Final Score: ${score}/${questions.length} (${percentage}%)<br>
-                    ${message}
-                </div>
-            `;
-            
-            document.getElementById('resultContainer').appendChild(finalDiv);
-            document.getElementById('progressFill').style.width = '100%';
-        }
-
-        function restartQuiz() {
-            document.getElementById('questionContainer').classList.remove('active');
-            document.querySelector('.practice-button').style.display = 'block';
-            quizStarted = false;
-            document.getElementById('progressFill').style.width = '0%';
-            document.getElementById('scoreDisplay').textContent = 'Score: 0/0';
-        }
-
-        // Add some interactive animations
-        document.addEventListener('DOMContentLoaded', function() {
-            // Add hover effects to tense cards
-            const cards = document.querySelectorAll('.tense-card');
-            cards.forEach(card => {
-                card.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-10px) scale(1.02)';
-                });
-                
-                card.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateY(0) scale(1)';
-                });
-            });
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = `You got ${score} out of ${questions.length} correct!`;
+            resultDiv.classList.add(score === questions.length ? 'correct' : 'incorrect');
         });
+
+        loadQuestions();
     </script>
 </body>
 </html>
