@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive English Tenses Chart</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="2"/></svg>');
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .nav-tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .nav-tab {
+            flex: 1;
+            padding: 20px;
+            text-align: center;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-tab:hover {
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .nav-tab.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .nav-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-bottom: 15px solid white;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .tense-section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tense-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .tense-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .tense-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid #667eea;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tense-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            border-radius: 50%;
+            transform: translate(30px, -30px);
+        }
+
+        .tense-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .past-card {
+            border-left-color: #e74c3c;
+        }
+
+        .future-card {
+            border-left-color: #3498db;
+        }
+
+        .tense-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .emoji {
+            font-size: 1.5rem;
+        }
+
+        .structure {
+            background: rgba(102, 126, 234, 0.1);
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-family: 'Courier New', monospace;
+            font-weight: 600;
+            color: #667eea;
+        }
+
+        .example {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            color: #2c3e50;
+        }
+
+        .hindi {
+            color: #7f8c8d;
+            font-style: italic;
+            font-size: 0.95rem;
+        }
+
+        .practice-section {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 30px;
+        }
+
+        .practice-button {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0 auto 20px;
+        }
+
+        .practice-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .question-container {
+            display: none;
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .question-container.active {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(-100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .question {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        .options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .option {
+            background: #f8f9fa;
+            border: 2px solid #dee2e6;
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .option:hover {
+            background: rgba(102, 126, 234, 0.1);
+            border-color: #667eea;
+        }
+
+        .option.selected {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .option.correct {
+            background: #27ae60;
+            color: white;
+            border-color: #27ae60;
+        }
+
+        .option.incorrect {
+            background: #e74c3c;
+            color: white;
+            border-color: #e74c3c;
+        }
+
+        .result {
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            font-weight: 600;
+        }
+
+        .correct-result {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .incorrect-result {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .score-display {
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin: 20px 0;
+            color: #667eea;
+        }
+
+        .next-button {
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .next-button:hover {
+            background: #229954;
+            transform: translateY(-2px);
+        }
+
+        .restart-button {
+            background: #f39c12;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            margin: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .restart-button:hover {
+            background: #e67e22;
+            transform: translateY(-2px);
+        }
+
+        .progress-bar {
+            background: #dee2e6;
+            height: 8px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .tense-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-tabs {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 English Tenses Master</h1>
+            <p>Learn and Practice English Tenses with Interactive Examples</p>
+        </div>
+
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showSection('past')">📚 Past Tense</button>
+            <button class="nav-tab" onclick="showSection('future')">🔮 Future Tense</button>
+            <button class="nav-tab" onclick="showSection('practice')">🏆 Practice Quiz</button>
+        </div>
+
+        <div class="content">
+            <div id="past" class="tense-section active">
+                <h2 style="text-align: center; color: #e74c3c; margin-bottom: 30px; font-size: 2rem;">
+                    📖 Past Tense (भूतकाल)
+                </h2>
+                <div class="tense-grid">
+                    <div class="tense-card past-card">
+                        <div class="tense-name">
+                            <span class="emoji">🏃‍♀️</span>
+                            Simple Past
+                        </div>
+                        <div class="structure">Subject + V2 (past form of verb)</div>
+                        <div class="example"><strong>Example:</strong> She went to market.</div>
+                        <div class="hindi"><strong>Hindi:</strong> वह बाजार गई थी।</div>
+                    </div>
+                    
+                    <div class="tense-card past-card">
+                        <div class="tense-name">
+                            <span class="emoji">📖</span>
+                            Past Continuous
+                        </div>
+                        <div class="structure">Subject + was/were + V-ing</div>
+                        <div class="example"><strong>Example:</strong> I was reading a book.</div>
+                        <div class="hindi"><strong>Hindi:</strong> मैं किताब पढ़ रहा था।</div>
+                    </div>
+                    
+                    <div class="tense-card past-card">
+                        <div class="tense-name">
+                            <span class="emoji">✅</span>
+                            Past Perfect
+                        </div>
+                        <div class="structure">Subject + had + V3</div>
+                        <div class="example"><strong>Example:</strong> He had left before I came.</div>
+                        <div class="hindi"><strong>Hindi:</strong> मैं आने से पहले वह जा चुका था।</div>
+                    </div>
+                    
+                    <div class="tense-card past-card">
+                        <div class="tense-name">
+                            <span class="emoji">⏰</span>
+                            Past Perfect Continuous
+                        </div>
+                        <div class="structure">Subject + had + been + V-ing</div>
+                        <div class="example"><strong>Example:</strong> They had been working all day.</div>
+                        <div class="hindi"><strong>Hindi:</strong> वे पूरा दिन काम कर रहे थे।</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="future" class="tense-section">
+                <h2 style="text-align: center; color: #3498db; margin-bottom: 30px; font-size: 2rem;">
+                    🔮 Future Tense (भविष्यत काल)
+                </h2>
+                <div class="tense-grid">
+                    <div class="tense-card future-card">
+                        <div class="tense-name">
+                            <span class="emoji">🔮</span>
+                            Simple Future
+                        </div>
+                        <div class="structure">Subject + will + V1</div>
+                        <div class="example"><strong>Example:</strong> She will come tomorrow.</div>
+                        <div class="hindi"><strong>Hindi:</strong> वह कल आएगी।</div>
+                    </div>
+                    
+                    <div class="tense-card future-card">
+                        <div class="tense-name">
+                            <span class="emoji">✈️</span>
+                            Future Continuous
+                        </div>
+                        <div class="structure">Subject + will be + V-ing</div>
+                        <div class="example"><strong>Example:</strong> I will be traveling next week.</div>
+                        <div class="hindi"><strong>Hindi:</strong> मैं अगले सप्ताह यात्रा कर रहा हूँ।</div>
+                    </div>
+                    
+                    <div class="tense-card future-card">
+                        <div class="tense-name">
+                            <span class="emoji">🎯</span>
+                            Future Perfect
+                        </div>
+                        <div class="structure">Subject + will have + V3</div>
+                        <div class="example"><strong>Example:</strong> They will have completed the work by evening.</div>
+                        <div class="hindi"><strong>Hindi:</strong> वे शाम तक काम पूरा कर चुके होंगे।</div>
+                    </div>
+                    
+                    <div class="tense-card future-card">
+                        <div class="tense-name">
+                            <span class="emoji">📅</span>
+                            Future Perfect Continuous
+                        </div>
+                        <div class="structure">Subject + will have been + V-ing</div>
+                        <div class="example"><strong>Example:</strong> By next month, he will have been working here for a year.</div>
+                        <div class="hindi"><strong>Hindi:</strong> अगले महीने तक, वह यहाँ एक साल से काम कर रहा होगा।</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="practice" class="tense-section">
+                <div class="practice-section">
+                    <h2 style="text-align: center; color: #667eea; margin-bottom: 20px; font-size: 2rem;">
+                        🏆 Practice Quiz
+                    </h2>
+                    <p style="text-align: center; margin-bottom: 20px; font-size: 1.1rem; color: #6c757d;">
+                        Test your knowledge with these interactive questions!
+                    </p>
+                    
+                    <div class="score-display" id="scoreDisplay">Score: 0/0</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                    </div>
+                    
+                    <button class="practice-button" onclick="startQuiz()">
+                        🚀 Start Practice Quiz
+                    </button>
+                    
+                    <div id="questionContainer" class="question-container">
+                        <div id="questionText" class="question"></div>
+                        <div id="optionsContainer" class="options"></div>
+                        <div id="resultContainer"></div>
+                        <div style="text-align: center;">
+                            <button id="nextButton" class="next-button" onclick="nextQuestion()" style="display: none;">
+                                Next Question →
+                            </button>
+                            <button class="restart-button" onclick="restartQuiz()" style="display: none;" id="restartButton">
+                                🔄 Try Again
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "Complete: Yesterday, I _____ to the store.",
+                options: ["go", "went", "going", "will go"],
+                correct: 1,
+                type: "Simple Past",
+                explanation: "Simple Past tense uses the past form of the verb (V2). 'Went' is the past form of 'go'."
+            },
+            {
+                question: "She _____ a book when I called her.",
+                options: ["read", "was reading", "has read", "will read"],
+                correct: 1,
+                type: "Past Continuous",
+                explanation: "Past Continuous shows an ongoing action in the past. Structure: was/were + V-ing."
+            },
+            {
+                question: "By the time we arrived, the movie _____.",
+                options: ["started", "was starting", "had started", "will start"],
+                correct: 2,
+                type: "Past Perfect",
+                explanation: "Past Perfect shows an action completed before another past action. Structure: had + V3."
+            },
+            {
+                question: "They _____ for two hours when it started raining.",
+                options: ["played", "were playing", "had been playing", "will play"],
+                correct: 2,
+                type: "Past Perfect Continuous",
+                explanation: "Past Perfect Continuous shows duration of an action before another past action."
+            },
+            {
+                question: "Tomorrow, she _____ to Paris.",
+                options: ["go", "goes", "went", "will go"],
+                correct: 3,
+                type: "Simple Future",
+                explanation: "Simple Future tense uses 'will + base verb' to express future actions."
+            },
+            {
+                question: "At 5 PM tomorrow, I _____ in a meeting.",
+                options: ["am", "was", "will be", "will have been"],
+                correct: 2,
+                type: "Future Continuous",
+                explanation: "Future Continuous shows ongoing action at a specific future time. Structure: will be + V-ing."
+            },
+            {
+                question: "By next year, they _____ their degree.",
+                options: ["complete", "will complete", "will have completed", "will be completing"],
+                correct: 2,
+                type: "Future Perfect",
+                explanation: "Future Perfect shows completion before a specific future time. Structure: will have + V3."
+            },
+            {
+                question: "By December, he _____ here for five years.",
+                options: ["works", "will work", "will have worked", "will have been working"],
+                correct: 3,
+                type: "Future Perfect Continuous",
+                explanation: "Future Perfect Continuous shows duration up to a future point. Structure: will have been + V-ing."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let selectedAnswer = null;
+        let quizStarted = false;
+
+        function showSection(section) {
+            // Update nav tabs
+            document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Show selected section
+            document.querySelectorAll('.tense-section').forEach(sec => sec.classList.remove('active'));
+            document.getElementById(section).classList.add('active');
+        }
+
+        function startQuiz() {
+            quizStarted = true;
+            currentQuestion = 0;
+            score = 0;
+            selectedAnswer = null;
+            updateScore();
+            showQuestion();
+            document.getElementById('questionContainer').classList.add('active');
+            document.querySelector('.practice-button').style.display = 'none';
+        }
+
+        function showQuestion() {
+            const question = questions[currentQuestion];
+            document.getElementById('questionText').textContent = `${currentQuestion + 1}. ${question.question}`;
+            
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'option';
+                optionDiv.textContent = option;
+                optionDiv.onclick = () => selectAnswer(index, optionDiv);
+                optionsContainer.appendChild(optionDiv);
+            });
+
+            document.getElementById('resultContainer').innerHTML = '';
+            document.getElementById('nextButton').style.display = 'none';
+            document.getElementById('restartButton').style.display = 'none';
+            selectedAnswer = null;
+
+            updateProgress();
+        }
+
+        function selectAnswer(index, element) {
+            if (selectedAnswer !== null) return;
+
+            selectedAnswer = index;
+            const question = questions[currentQuestion];
+            
+            // Remove previous selections
+            document.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected', 'correct', 'incorrect');
+            });
+
+            // Show correct/incorrect
+            document.querySelectorAll('.option').forEach((opt, i) => {
+                if (i === question.correct) {
+                    opt.classList.add('correct');
+                } else if (i === selectedAnswer && i !== question.correct) {
+                    opt.classList.add('incorrect');
+                }
+            });
+
+            // Update score
+            if (selectedAnswer === question.correct) {
+                score++;
+            }
+
+            // Show result
+            const resultDiv = document.createElement('div');
+            resultDiv.className = selectedAnswer === question.correct ? 'result correct-result' : 'result incorrect-result';
+            
+            if (selectedAnswer === question.correct) {
+                resultDiv.innerHTML = `
+                    <strong>✅ Correct!</strong><br>
+                    <strong>Tense Type:</strong> ${question.type}<br>
+                    <strong>Explanation:</strong> ${question.explanation}
+                `;
+            } else {
+                resultDiv.innerHTML = `
+                    <strong>❌ Incorrect!</strong><br>
+                    <strong>Correct Answer:</strong> ${question.options[question.correct]}<br>
+                    <strong>Tense Type:</strong> ${question.type}<br>
+                    <strong>Explanation:</strong> ${question.explanation}
+                `;
+            }
+            
+            document.getElementById('resultContainer').appendChild(resultDiv);
+            updateScore();
+
+            // Show next button or restart
+            if (currentQuestion < questions.length - 1) {
+                document.getElementById('nextButton').style.display = 'inline-block';
+            } else {
+                document.getElementById('restartButton').style.display = 'inline-block';
+                showFinalScore();
+            }
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            if (currentQuestion < questions.length) {
+                showQuestion();
+            }
+        }
+
+        function updateScore() {
+            document.getElementById('scoreDisplay').textContent = `Score: ${score}/${currentQuestion + (selectedAnswer !== null ? 1 : 0)}`;
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestion) / questions.length) * 100;
+            document.getElementById('progressFill').style.width = `${progress}%`;
+        }
+
+        function showFinalScore() {
+            const percentage = Math.round((score / questions.length) * 100);
+            let message = '';
+            let emoji = '';
+            
+            if (percentage >= 90) {
+                message = 'Excellent! You\'re a tense master! 🎉';
+                emoji = '🏆';
+            } else if (percentage >= 70) {
+                message = 'Great job! You\'re doing well! 👍';
+                emoji = '🌟';
+            } else if (percentage >= 50) {
+                message = 'Good effort! Keep practicing! 💪';
+                emoji = '📚';
+            } else {
+                message = 'Don\'t worry, practice makes perfect! 🚀';
+                emoji = '💡';
+            }
+
+            const finalDiv = document.createElement('div');
+            finalDiv.className = 'result correct-result';
+            finalDiv.innerHTML = `
+                <div style="text-align: center; font-size: 1.5rem;">
+                    ${emoji}<br>
+                    <strong>Quiz Complete!</strong><br>
+                    Final Score: ${score}/${questions.length} (${percentage}%)<br>
+                    ${message}
+                </div>
+            `;
+            
+            document.getElementById('resultContainer').appendChild(finalDiv);
+            document.getElementById('progressFill').style.width = '100%';
+        }
+
+        function restartQuiz() {
+            document.getElementById('questionContainer').classList.remove('active');
+            document.querySelector('.practice-button').style.display = 'block';
+            quizStarted = false;
+            document.getElementById('progressFill').style.width = '0%';
+            document.getElementById('scoreDisplay').textContent = 'Score: 0/0';
+        }
+
+        // Add some interactive animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add hover effects to tense cards
+            const cards = document.querySelectorAll('.tense-card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
